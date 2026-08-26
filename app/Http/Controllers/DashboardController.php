@@ -11,8 +11,10 @@ class DashboardController extends Controller
     if (Auth::check()) {
         if (Auth::user()->role === 'admin') {
             return redirect()->route('admin.dashboard');
+        } else if (Auth::user()->role === 'user') {
+            return redirect()->route('user.dashboard');
         }
-        return redirect()->route('user.dashboard');
+        return redirect()->route('guest.dashboard');
     }
 
     return view('welcome');
