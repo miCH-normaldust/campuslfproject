@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="dashboard-layout">
-        <!-- Admin Navigation Drawer -->
+        <!--Admin Navigation Drawer-->
 <aside class="drawer" style="background: #020617; border-right: 2px solid #ef4444;">
     <div>
         <div class="drawer-header">
