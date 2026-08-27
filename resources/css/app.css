@@ -482,3 +482,189 @@ input:focus {
     margin-top: 4px;
     display: block;
 }
+
+/* Alert Containers */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.alert-danger ul {
+    margin-left: 18px;
+}
+
+/* Field-level error highlighting */
+.input-error {
+    border-color: #ef4444 !important;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Password Field Wrapper Positioning */
+.password-field-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* Ensure the input leaves space for the icon */
+.password-field-wrapper input {
+    width: 100%;
+    padding-right: 48px !important; /* Prevents text from overlapping the eye */
+}
+
+/* Eye Toggle Button Styles */
+.toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    z-index: 10;
+}
+
+.toggle-password-btn:hover {
+    color: #1e293b;
+}
+
+/* Force SVGs to render cleanly with explicit width/height */
+.toggle-password-btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    stroke: currentColor;
+}
+
+/* Force single-line search bar layout */
+.search-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 720px;
+}
+
+.search-bar-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* Prevents items from breaking into next line */
+    gap: 10px;
+    width: 100%;
+}
+
+/* Category Pill Radio Buttons */
+.category-toggle-group {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+    flex-shrink: 0; /* Prevents shrinking */
+    white-space: nowrap;
+}
+
+.category-pill {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.category-pill input[type="radio"] {
+    display: none;
+}
+
+.category-pill:hover {
+    color: #0f172a;
+}
+
+.category-pill.active {
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Vertical Divider Line */
+.search-divider {
+    width: 1px;
+    height: 28px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* Search Field Input */
+.search-input-field {
+    display: flex;
+    align-items: center;
+    flex: 1; /* Takes up remaining middle space */
+    min-width: 120px; /* Ensures input remains usable */
+    gap: 8px;
+}
+
+.search-icon {
+    width: 18px;
+    height: 18px;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+.search-input-field input {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent;
+    width: 100%;
+    font-size: 0.92rem;
+    color: #1e293b;
+}
+
+/* Submit Search Button */
+.btn-search-submit {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    flex-shrink: 0; /* Keeps button on same line */
+    white-space: nowrap;
+}
+
+.btn-search-submit:hover {
+    background: #1d4ed8;
+}
