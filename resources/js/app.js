@@ -86,3 +86,29 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleControls(); // Initial execution on load
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const radioPosts = document.getElementById('cat-posts');
+    const radioProfiles = document.getElementById('cat-profiles');
+    const postTypeGroup = document.getElementById('post-type-group');
+    const sortPostsSelect = document.getElementById('sort-posts-select');
+    const sortProfilesSelect = document.getElementById('sort-profiles-select');
+
+    function toggleControls() {
+        if (radioProfiles && radioProfiles.checked) {
+            if (postTypeGroup) postTypeGroup.style.display = 'none';
+            if (sortPostsSelect) sortPostsSelect.style.display = 'none';
+            if (sortProfilesSelect) sortProfilesSelect.style.display = 'block';
+        } else {
+            if (postTypeGroup) postTypeGroup.style.display = 'block';
+            if (sortPostsSelect) sortPostsSelect.style.display = 'block';
+            if (sortProfilesSelect) sortProfilesSelect.style.display = 'none';
+        }
+    }
+
+    if (radioPosts && radioProfiles) {
+        radioPosts.addEventListener('change', toggleControls);
+        radioProfiles.addEventListener('change', toggleControls);
+        toggleControls(); // Initial execution on load
+    }
+});

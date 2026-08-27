@@ -30,20 +30,51 @@
                 <p>Browse active lost and found items posted across campus.</p>
             </div>
 
-            <!-- Redesigned Search Bar Container -->
+            <!-- Search Bar Container -->
             <div class="search-card">
                 <form action="{{ route('guest.dashboard') }}" method="GET" class="search-form">
                     <div class="search-bar-wrapper">
-                        <!-- Category Radio Buttons -->
+                        <!-- Category Radio Buttons (Icons Only) -->
                         <div class="category-toggle-group">
-                            <label class="category-pill {{ request('category', 'posts') === 'posts' ? 'active' : '' }}">
-                                <input type="radio" name="category" value="posts" {{ request('category', 'posts') === 'posts' ? 'checked' : '' }}>
-                                <span>Posts</span>
+                            <label class="category-pill {{ request('category', 'posts') === 'posts' ? 'active' : '' }}" title="Posts">
+                                <input type="radio" id="cat-posts" name="category" value="posts" {{ request('category', 'posts') === 'posts' ? 'checked' : '' }}>
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
                             </label>
-                            <label class="category-pill {{ request('category') === 'profiles' ? 'active' : '' }}">
-                                <input type="radio" name="category" value="profiles" {{ request('category') === 'profiles' ? 'checked' : '' }}>
-                                <span>Profiles</span>
+                            <label class="category-pill {{ request('category') === 'profiles' ? 'active' : '' }}" title="Profiles">
+                                <input type="radio" id="cat-profiles" name="category" value="profiles" {{ request('category') === 'profiles' ? 'checked' : '' }}>
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
                             </label>
+                        </div>
+
+                        <!-- Post Sub-Category Dropdown (Lost / Found) -->
+                        <div class="filter-group" id="post-type-group" style="{{ request('category') === 'profiles' ? 'display: none;' : '' }}">
+                            <select name="post_type" class="search-select-dropdown compact">
+                                <option value="all" {{ ($postType ?? 'all') === 'all' ? 'selected' : '' }}>All Statuses</option>
+                                <option value="found" {{ ($postType ?? '') === 'found' ? 'selected' : '' }}>Found</option>
+                                <option value="lost" {{ ($postType ?? '') === 'lost' ? 'selected' : '' }}>Lost</option>
+                            </select>
+                        </div>
+
+                        <!-- Dynamic Compact Sorting Dropdowns -->
+                        <div class="filter-group">
+                            <select id="sort-posts-select" name="sort" class="search-select-dropdown compact" style="{{ request('category') === 'profiles' ? 'display: none;' : '' }}">
+                                <option value="latest" {{ ($sort ?? 'latest') === 'latest' ? 'selected' : '' }}>Newest</option>
+                                <option value="oldest" {{ ($sort ?? '') === 'oldest' ? 'selected' : '' }}>Oldest</option>
+                            </select>
+
+                            <select id="sort-profiles-select" name="sort" class="search-select-dropdown compact" style="{{ request('category') !== 'profiles' ? 'display: none;' : '' }}">
+                                <option value="a-z" {{ ($sort ?? 'a-z') === 'a-z' ? 'selected' : '' }}>A - Z</option>
+                                <option value="z-a" {{ ($sort ?? '') === 'z-a' ? 'selected' : '' }}>Z - A</option>
+                            </select>
                         </div>
 
                         <div class="search-divider"></div>
@@ -88,8 +119,8 @@
             @endif
 
             <!-- Conditional Grid Display -->
-            @if(!empty($isSearching) && request('category') === 'profiles')
-                <!-- Profiles Grid (Active Profile Search) -->
+            @if(request('category') === 'profiles')
+                <!-- Profiles Grid -->
                 <div class="post-grid">
                     @forelse($profiles as $profile)
                         <div class="post-card">
@@ -101,12 +132,12 @@
                         </div>
                     @empty
                         <div class="empty-state">
-                            <p>No user profiles matching "{{ $searchTerm }}".</p>
+                            <p>{{ !empty($isSearching) ? 'No user profiles matching "' . $searchTerm . '".' : 'No user profiles found.' }}</p>
                         </div>
                     @endforelse
                 </div>
             @else
-                <!-- General Feed OR Active Post Search -->
+                <!-- Posts Grid -->
                 <div class="post-grid">
                     @forelse($posts as $post)
                         <div class="post-card">
@@ -118,7 +149,7 @@
                         </div>
                     @empty
                         <div class="empty-state">
-                            <p>{{ !empty($isSearching) ? 'No posts found matching your search.' : 'No posts in the community feed yet.' }}</p>
+                            <p>{{ !empty($isSearching) ? 'No posts found matching your search criteria.' : 'No active posts in the community feed yet.' }}</p>
                         </div>
                     @endforelse
                 </div>
