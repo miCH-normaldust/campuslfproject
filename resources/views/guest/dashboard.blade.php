@@ -9,19 +9,44 @@
 <body>
     <div class="dashboard-layout">
         <!-- Guest Navigation Drawer -->
-        <aside class="drawer">
-            <div>
-                <div class="drawer-header">
-                    <a href="{{ route('welcome') }}" class="brand">CampusLF</a>
-                    <span class="user-badge">Guest Access</span>
-                </div>
-                <ul class="drawer-menu">
-                    <li><a href="{{ route('guest.dashboard') }}" class="active">Browse Community Feed</a></li>
-                    <li><a href="{{ route('login') }}">Log-in / Register</a></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
+<aside class="drawer">
+    <div>
+        <div class="drawer-header">
+            <div class="brand-wrapper">
+                <a href="{{ route('welcome') }}" class="brand">CampusLF</a>
+                <span class="user-badge">Guest Access</span>
             </div>
-        </aside>
+            <!-- Toggle Button -->
+            <button type="button" class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="drawer-menu">
+            <li>
+                <a href="{{ route('guest.dashboard') }}" class="active" title="Browse Community Feed">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span class="menu-text">Browse Community Feed</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('login') }}" title="Log-in / Register">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                    <span class="menu-text">Log-in / Register</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="About Us">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span class="menu-text">About Us</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
 
         <!-- Main Content -->
         <main class="main-content">

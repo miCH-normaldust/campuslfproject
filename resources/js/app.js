@@ -112,3 +112,33 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleControls(); // Initial execution on load
     }
 });
+
+window.toggleSidebar = function () {
+    const drawer = document.querySelector('.drawer');
+    if (drawer) {
+        drawer.classList.toggle('collapsed');
+        localStorage.setItem('admin_sidebar_collapsed', drawer.classList.contains('collapsed'));
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const drawer = document.querySelector('.drawer');
+    if (drawer && localStorage.getItem('admin_sidebar_collapsed') === 'true') {
+        drawer.classList.add('collapsed');
+    }
+});
+
+window.toggleSidebar = function () {
+    const drawer = document.querySelector('.drawer');
+    if (drawer) {
+        drawer.classList.toggle('collapsed');
+        localStorage.setItem('sidebar_collapsed', drawer.classList.contains('collapsed'));
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const drawer = document.querySelector('.drawer');
+    if (drawer && localStorage.getItem('sidebar_collapsed') === 'true') {
+        drawer.classList.add('collapsed');
+    }
+});

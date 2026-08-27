@@ -1,4 +1,7 @@
-/* Core & Layout Setup */
+/* ==========================================================================
+   Core & Layout Setup
+   ========================================================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -24,13 +27,12 @@ body.welcome-page {
     padding: 20px;
 }
 
-/* Centered Auth Page Background */
 body.auth-page {
     background: #f1f5f9;
     min-height: 100vh;
     display: flex;
-    align-items: center;      /* Vertically centers the form */
-    justify-content: center;  /* Horizontally centers the form */
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
@@ -70,7 +72,7 @@ body.auth-page {
     line-height: 1.5;
 }
 
-/* Auth Cards (Login & Register Form Container) */
+/* Auth Cards (Login & Register Container) */
 .auth-card {
     background: #ffffff;
     padding: 40px;
@@ -78,7 +80,7 @@ body.auth-page {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
     width: 100%;
     max-width: 420px;
-    margin: auto;             /* Safety fallback centering */
+    margin: auto;
 }
 
 .auth-card h2 {
@@ -188,7 +190,7 @@ input:focus {
     font-weight: 600;
 }
 
-/* Password Field Wrapper Positioning */
+/* Password Toggle Field Wrapper */
 .password-field-wrapper {
     position: relative;
     width: 100%;
@@ -198,10 +200,9 @@ input:focus {
 
 .password-field-wrapper input {
     width: 100%;
-    padding-right: 48px !important; /* Prevents text from overlapping the eye */
+    padding-right: 48px !important;
 }
 
-/* Eye Toggle Button Styles */
 .toggle-password-btn {
     position: absolute;
     right: 12px;
@@ -229,17 +230,19 @@ input:focus {
 }
 
 /* ==========================================================================
-   Dashboard & Drawer Layout
+   Dashboard & Drawer Layout (Collapsible)
    ========================================================================== */
 
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
+    width: 100%;
 }
 
-/* Navigation Drawer */
+/* Base Navigation Drawer Structure */
 .drawer {
-    width: 280px;
+    width: 260px;
+    min-width: 260px;
     background: #0f172a;
     color: #f8fafc;
     display: flex;
@@ -250,7 +253,10 @@ input:focus {
     top: 0;
     bottom: 0;
     left: 0;
+    z-index: 100;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .drawer-header {
@@ -280,7 +286,8 @@ input:focus {
     gap: 6px;
 }
 
-.drawer-menu a, .drawer-menu button {
+.drawer-menu a, 
+.drawer-menu button {
     display: flex;
     align-items: center;
     width: 100%;
@@ -297,7 +304,8 @@ input:focus {
     text-align: left;
 }
 
-.drawer-menu a:hover, .drawer-menu button:hover {
+.drawer-menu a:hover, 
+.drawer-menu button:hover {
     background: #1e293b;
     color: #38bdf8;
 }
@@ -313,11 +321,79 @@ input:focus {
     padding-top: 16px;
 }
 
-/* Main Content Area */
+/* Sidebar Toggle Button Styles */
+.sidebar-toggle-btn {
+    background: transparent !important;
+    color: #ffffff;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.sidebar-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Strict Icon Dimension Clamping */
+.drawer svg,
+.drawer .menu-icon {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    flex-shrink: 0;
+}
+
+/* Drawer Collapsed Overrides */
+.drawer.collapsed {
+    width: 72px !important;
+    min-width: 72px !important;
+    padding: 20px 0;
+}
+
+.drawer.collapsed .brand-wrapper,
+.drawer.collapsed .menu-text {
+    display: none !important;
+}
+
+.drawer.collapsed .drawer-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+}
+
+.drawer.collapsed .sidebar-toggle-btn {
+    margin: 0 auto;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.drawer.collapsed .drawer-menu a,
+.drawer.collapsed .drawer-menu button {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+/* Dynamic Main Content Shift */
 .main-content {
-    margin-left: 280px;
+    margin-left: 260px;
     flex: 1;
     padding: 36px 40px;
+    min-width: 0;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer.collapsed ~ .main-content {
+    margin-left: 72px;
 }
 
 .page-header {
@@ -336,7 +412,10 @@ input:focus {
     margin-top: 4px;
 }
 
-/* Cards & Grid */
+/* ==========================================================================
+   Cards & Grid
+   ========================================================================== */
+
 .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -367,7 +446,6 @@ input:focus {
     margin-bottom: 16px;
 }
 
-/* Badges */
 .status-badge {
     display: inline-block;
     padding: 4px 10px;
@@ -392,7 +470,7 @@ input:focus {
 }
 
 /* ==========================================================================
-   Search Bar & Filter Controls Layout
+   Search Bar & Filter Controls
    ========================================================================== */
 
 .search-card {
@@ -414,7 +492,6 @@ input:focus {
     width: 100%;
 }
 
-/* Category Toggle Group & Icon Pills */
 .category-toggle-group {
     display: flex;
     background: #f1f5f9;
@@ -457,7 +534,6 @@ input:focus {
     height: 18px;
 }
 
-/* Filter Dropdowns & Compact Options */
 .filter-controls-wrapper {
     display: flex;
     align-items: center;
@@ -494,7 +570,6 @@ input:focus {
     border-color: #2563eb;
 }
 
-/* Compact Dropdown Modifier */
 .search-select-dropdown.compact {
     padding: 5px 8px;
     font-size: 0.8rem;
@@ -515,7 +590,6 @@ input:focus {
     outline: none;
 }
 
-/* Vertical Divider Line */
 .search-divider {
     width: 1px;
     height: 28px;
@@ -523,7 +597,6 @@ input:focus {
     flex-shrink: 0;
 }
 
-/* Search Input Field */
 .search-input-field {
     display: flex;
     align-items: center;
@@ -549,7 +622,6 @@ input:focus {
     color: #1e293b;
 }
 
-/* Submit Search Button */
 .btn-search-submit {
     background: #2563eb;
     color: #ffffff;
@@ -568,7 +640,6 @@ input:focus {
     background: #1d4ed8;
 }
 
-/* Search Status Bar & Back Button */
 .search-status-bar {
     display: flex;
     align-items: center;
@@ -701,7 +772,9 @@ input:focus {
     cursor: pointer;
 }
 
-.modal-actions .btn-cancel:hover { background: #e2e8f0; }
+.modal-actions .btn-cancel:hover { 
+    background: #e2e8f0; 
+}
 
 .modal-actions .btn-confirm {
     flex: 1;
@@ -715,7 +788,9 @@ input:focus {
     cursor: pointer;
 }
 
-.modal-actions .btn-confirm:hover { background: #dc2626; }
+.modal-actions .btn-confirm:hover { 
+    background: #dc2626; 
+}
 
 /* Alert Containers */
 .alert {
@@ -736,7 +811,6 @@ input:focus {
     margin-left: 18px;
 }
 
-/* Field-level Error Highlighting */
 .input-error {
     border-color: #ef4444 !important;
 }
