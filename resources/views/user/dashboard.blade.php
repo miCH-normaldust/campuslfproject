@@ -9,28 +9,67 @@
 <body>
     <div class="dashboard-layout">
         <!-- User Navigation Drawer -->
-        <aside class="drawer">
-            <div>
-                <div class="drawer-header">
-                    <a href="#" class="brand">CampusLF</a>
-                    <span class="user-badge">Logged in as: {{ Auth::user()->name }}</span>
-                </div>
-                <ul class="drawer-menu">
-                    <li><a href="{{ route('user.dashboard') }}" class="active">Browse Community Feed</a></li>
-                    <li><a href="#">Create Post</a></li>
-                    <li><a href="#">Messages & Notifications</a></li>
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
+        <!-- User Navigation Drawer -->
+<aside class="drawer">
+    <div>
+        <div class="drawer-header">
+            <div class="brand-wrapper">
+                <a href="{{ route('user.dashboard') }}" class="brand">CampusLF</a>
+                <span class="user-badge">Logged in as: {{ Auth::user()->name }}</span>
             </div>
-            <div class="drawer-footer">
-                <ul class="drawer-menu">
-                    <li>
-                        <button type="button" onclick="openLogoutModal()">Log-out</button>
-                    </li>
-                </ul>
-            </div>
-        </aside>
+            <!-- Collapsible Toggle Button -->
+            <button type="button" class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="drawer-menu">
+            <li>
+                <a href="{{ route('user.dashboard') }}" class="active" title="Browse Community Feed">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span class="menu-text">Browse Community Feed</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Create Post">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    <span class="menu-text">Create Post</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Messages & Notifications">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span class="menu-text">Messages & Notifications</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Profile">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    <span class="menu-text">Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="About Us">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span class="menu-text">About Us</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="drawer-footer">
+        <ul class="drawer-menu">
+            <li>
+                <button type="button" onclick="openLogoutModal()" title="Log-out">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span class="menu-text">Log-out</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</aside>
 
         <!-- Main Content -->
         <main class="main-content">

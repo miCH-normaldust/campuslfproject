@@ -747,3 +747,85 @@ input:focus {
     margin-top: 4px;
     display: block;
 }
+/* Drawer Transitions */
+.drawer,
+.main-content,
+.brand-wrapper,
+.menu-text {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.brand-wrapper {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+}
+
+.sidebar-toggle-btn {
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+    background: #0f172a;
+    color: #f87171;
+}
+
+.drawer-menu a, 
+.drawer-menu button {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.menu-icon {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* Collapsed State Override Rules */
+.drawer.collapsed {
+    width: 72px !important;
+    padding: 24px 10px;
+}
+
+.drawer.collapsed ~ .main-content {
+    margin-left: 72px;
+}
+
+.drawer.collapsed .brand-wrapper,
+.drawer.collapsed .menu-text {
+    opacity: 0;
+    width: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.drawer.collapsed .menu-icon {
+    margin-right: 0;
+}
+
+.drawer.collapsed .drawer-menu a,
+.drawer.collapsed .drawer-menu button {
+    justify-content: center;
+    padding: 12px 0;
+}

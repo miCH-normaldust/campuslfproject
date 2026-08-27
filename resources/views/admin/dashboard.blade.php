@@ -9,29 +9,72 @@
 <body>
     <div class="dashboard-layout">
         <!-- Admin Navigation Drawer -->
-        <aside class="drawer" style="background: #020617; border-right: 2px solid #ef4444;">
-            <div>
-                <div class="drawer-header">
-                    <a href="#" class="brand" style="color: #f87171;">CampusLF Admin</a>
-                    <span class="user-badge" style="color: #ef4444;">Administrator Access</span>
-                </div>
-                <ul class="drawer-menu">
-                    <li><a href="{{ route('admin.dashboard') }}" class="active">Browse Community Feed</a></li>
-                    <li><a href="#">User Activity Monitoring</a></li>
-                    <li><a href="#">Reports & Policy Violations</a></li>
-                    <li><a href="#">Account Management & Deactivation Requests</a></li>
-                    <li><a href="#">Messages & Notifications</a></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
+<aside class="drawer" style="background: #020617; border-right: 2px solid #ef4444;">
+    <div>
+        <div class="drawer-header">
+            <div class="brand-wrapper">
+                <a href="#" class="brand" style="color: #f87171;">CampusLF Admin</a>
+                <span class="user-badge" style="color: #ef4444;">Administrator Access</span>
             </div>
-            <div class="drawer-footer">
-                <ul class="drawer-menu">
-                    <li>
-                        <button type="button" onclick="openLogoutModal()">Log-out</button>
-                    </li>
-                </ul>
-            </div>
-        </aside>
+            <!-- Collapsible Toggle Button -->
+            <button type="button" class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle Navigation">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="drawer-menu">
+            <li>
+                <a href="{{ route('admin.dashboard') }}" class="active" title="Browse Community Feed">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                    <span class="menu-text">Browse Community Feed</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="User Activity Monitoring">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    <span class="menu-text">User Activity Monitoring</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Reports & Policy Violations">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg>
+                    <span class="menu-text">Reports & Policy Violations</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Account Management">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" y1="8" x2="23" y2="13"></line><line x1="23" y1="8" x2="18" y2="13"></line></svg>
+                    <span class="menu-text">Account Management</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="Messages & Notifications">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span class="menu-text">Messages & Notifications</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" title="About Us">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span class="menu-text">About Us</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="drawer-footer">
+        <ul class="drawer-menu">
+            <li>
+                <button type="button" onclick="openLogoutModal()" title="Log-out">
+                    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span class="menu-text">Log-out</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+</aside>
 
         <!-- Main Content -->
         <main class="main-content">
