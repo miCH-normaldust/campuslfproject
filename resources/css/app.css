@@ -1,4 +1,4 @@
-
+/* Core & Layout Setup */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,19 +7,36 @@
 }
 
 body {
-    background: #f1f5f9;
+    background-color: #f8fafc;
+    color: #1e293b;
     min-height: 100vh;
+}
+
+/* ==========================================================================
+   Welcome & Auth Pages (Login / Register)
+   ========================================================================== */
+
+body.welcome-page {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
-/* Welcome Page Styling */
-body.welcome-page {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+/* Centered Auth Page Background */
+body.auth-page {
+    background: #f1f5f9;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;      /* Vertically centers the form */
+    justify-content: center;  /* Horizontally centers the form */
+    padding: 20px;
 }
 
+
+
+/* Hero Card (Welcome) */
 .hero-card {
     background: rgba(255, 255, 255, 0.98);
     padding: 50px 40px;
@@ -55,14 +72,16 @@ body.welcome-page {
     line-height: 1.5;
 }
 
-/* Auth Cards (Login & Register) */
+/* Auth Cards (Login & Register Form Container) */
+/* Centered Form Card */
 .auth-card {
-    background: white;
+    background: #ffffff;
     padding: 40px;
     border-radius: 12px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
     width: 100%;
     max-width: 420px;
+    margin: auto;             /* Safety fallback centering */
 }
 
 .auth-card h2 {
@@ -105,6 +124,7 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
+/* Auth Buttons */
 .btn-submit {
     width: 100%;
     padding: 12px;
@@ -116,6 +136,7 @@ input:focus {
     cursor: pointer;
     font-size: 1rem;
     margin-top: 10px;
+    transition: background 0.2s;
 }
 
 .btn-submit:hover {
@@ -130,7 +151,6 @@ input:focus {
     background: #059669;
 }
 
-/* Button Utilities */
 .btn-group {
     display: flex;
     flex-direction: column;
@@ -149,38 +169,14 @@ input:focus {
     text-align: center;
 }
 
-.btn-primary {
-    background: #2563eb;
-    color: white;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-}
+.btn-primary { background: #2563eb; color: white; }
+.btn-primary:hover { background: #1d4ed8; }
 
-.btn-primary:hover {
-    background: #1d4ed8;
-    transform: translateY(-1px);
-}
+.btn-secondary { background: #10b981; color: white; }
+.btn-secondary:hover { background: #059669; }
 
-.btn-secondary {
-    background: #10b981;
-    color: white;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.btn-secondary:hover {
-    background: #059669;
-    transform: translateY(-1px);
-}
-
-.btn-outline {
-    background: transparent;
-    color: #475569;
-    border: 2px solid #e2e8f0;
-}
-
-.btn-outline:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-}
+.btn-outline { background: transparent; color: #475569; border: 2px solid #e2e8f0; }
+.btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
 
 .footer-text {
     margin-top: 20px;
@@ -195,107 +191,294 @@ input:focus {
     font-weight: 600;
 }
 
-/* Dashboard General Layout */
-body.dashboard-body {
-    background: #f8fafc;
+/* ==========================================================================
+   Dashboard & Drawer Layout
+   ========================================================================== */
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Navigation Drawer */
+.drawer {
+    width: 280px;
+    background: #0f172a;
+    color: #f8fafc;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    padding: 0;
-}
-
-.navbar {
-    background: #1e293b;
-    color: white;
-    padding: 16px 32px;
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 24px 16px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
 }
 
-.navbar .brand {
-    font-size: 1.4rem;
+.drawer-header {
+    margin-bottom: 24px;
+    padding: 0 12px;
+}
+
+.drawer-header .brand {
+    font-size: 1.5rem;
     font-weight: 800;
-    color: #60a5fa;
+    color: #38bdf8;
     text-decoration: none;
+    letter-spacing: -0.5px;
 }
 
-.navbar .user-info {
+.drawer-header .user-badge {
+    display: block;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.drawer-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.drawer-menu a, .drawer-menu button {
     display: flex;
     align-items: center;
-    gap: 16px;
+    width: 100%;
+    padding: 12px 14px;
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
 }
 
-.container {
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 0 20px;
-    width: 100%;
+.drawer-menu a:hover, .drawer-menu button:hover {
+    background: #1e293b;
+    color: #38bdf8;
+}
+
+.drawer-menu a.active {
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.drawer-footer {
+    border-top: 1px solid #1e293b;
+    padding-top: 16px;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 280px;
+    flex: 1;
+    padding: 36px 40px;
 }
 
 .page-header {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
 }
 
 .page-header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: 700;
     color: #0f172a;
 }
 
 .page-header p {
     color: #64748b;
     font-size: 0.95rem;
+    margin-top: 4px;
 }
 
-/* Post Cards */
+/* Cards & Grid */
 .post-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    gap: 24px;
 }
 
 .post-card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .post-card h3 {
+    font-size: 1.15rem;
     color: #1e293b;
     margin-bottom: 8px;
 }
 
 .post-card p {
-    color: #475569;
+    color: #64748b;
     font-size: 0.9rem;
-    margin-bottom: 12px;
+    line-height: 1.5;
+    margin-bottom: 16px;
 }
 
-/* Status Badges */
+/* Badges */
 .status-badge {
     display: inline-block;
     padding: 4px 10px;
-    border-radius: 12px;
+    border-radius: 20px;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .status-active { background: #dcfce7; color: #15803d; }
 .status-found { background: #dbeafe; color: #1d4ed8; }
 .status-hidden { background: #fef3c7; color: #b45309; }
 
-/* Admin Activity Section */
-.admin-badge {
-    background: #dc2626;
-    color: white;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
+.empty-state {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    border: 1px border-dashed #cbd5e1;
+    color: #64748b;
+}
+
+/* Logout Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px 28px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.modal-overlay.active .modal-card {
+    transform: scale(1);
+}
+
+.modal-icon {
+    width: 56px;
+    height: 56px;
+    background: #fef2f2;
+    color: #ef4444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.modal-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+}
+
+.modal-card p {
+    color: #64748b;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.modal-actions .btn-cancel {
+    flex: 1;
+    padding: 12px;
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.modal-actions .btn-cancel:hover { background: #e2e8f0; }
+
+.modal-actions .btn-confirm {
+    flex: 1;
+    padding: 12px;
+    background: #ef4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.modal-actions .btn-confirm:hover { background: #dc2626; }
+
+/* Alert Containers */
+.alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+}
+
+.alert-danger ul {
+    margin-left: 18px;
+}
+
+/* Field-level error highlighting */
+.input-error {
+    border-color: #ef4444 !important;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    display: block;
 }
