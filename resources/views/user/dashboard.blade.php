@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusLF - Student Dashboard</title>
-    @vite(['resources/css/app.css'])
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
@@ -27,7 +26,7 @@
             <div class="drawer-footer">
                 <ul class="drawer-menu">
                     <li>
-                            <button type="button" onclick="openLogoutModal()">Log-out</button>
+                        <button type="button" onclick="openLogoutModal()">Log-out</button>
                     </li>
                 </ul>
             </div>
@@ -40,83 +39,124 @@
                 <p>Manage your posts, report lost items, or browse campus feed.</p>
             </div>
             
-    <!-- Redesigned Search Bar Container -->
-<div class="search-card">
-    <form action="" method="GET" class="search-form">
-        <div class="search-bar-wrapper">
-            <!-- Category Radio Buttons -->
-            <div class="category-toggle-group">
-                <label class="category-pill {{ request('category', 'posts') === 'posts' ? 'active' : '' }}">
-                    <input type="radio" name="category" value="posts" {{ request('category', 'posts') === 'posts' ? 'checked' : '' }}>
-                    <span>Posts</span>
-                </label>
-                <label class="category-pill {{ request('category') === 'profiles' ? 'active' : '' }}">
-                    <input type="radio" name="category" value="profiles" {{ request('category') === 'profiles' ? 'checked' : '' }}>
-                    <span>Profiles</span>
-                </label>
+            <!-- Search Bar Container -->
+            <div class="search-card">
+                <form action="{{ route('user.dashboard') }}" method="GET" class="search-form">
+                    <div class="search-bar-wrapper">
+                        <!-- Category Radio Buttons -->
+                        <div class="category-toggle-group">
+                            <label class="category-pill {{ request('category', 'posts') === 'posts' ? 'active' : '' }}">
+                                <input type="radio" id="cat-posts" name="category" value="posts" {{ request('category', 'posts') === 'posts' ? 'checked' : '' }}>
+                                <span>Posts</span>
+                            </label>
+                            <label class="category-pill {{ request('category') === 'profiles' ? 'active' : '' }}">
+                                <input type="radio" id="cat-profiles" name="category" value="profiles" {{ request('category') === 'profiles' ? 'checked' : '' }}>
+                                <span>Profiles</span>
+                            </label>
+                        </div>
+
+                        <!-- Post Sub-Category Dropdown (Lost / Found) -->
+                        <div class="filter-group" id="post-type-group" style="{{ request('category') === 'profiles' ? 'display: none;' : '' }}">
+                            <select name="post_type" class="search-select-dropdown">
+                                <option value="all" {{ ($postType ?? 'all') === 'all' ? 'selected' : '' }}>All Statuses</option>
+                                <option value="found" {{ ($postType ?? '') === 'found' ? 'selected' : '' }}>Found Items</option>
+                                <option value="lost" {{ ($postType ?? '') === 'lost' ? 'selected' : '' }}>Lost Items</option>
+                            </select>
+                        </div>
+
+                        <!-- Dynamic Sorting Select -->
+                        <div class="filter-group">
+                            <select id="sort-posts-select" name="sort" class="search-select-dropdown" style="{{ request('category') === 'profiles' ? 'display: none;' : '' }}">
+                                <option value="latest" {{ ($sort ?? 'latest') === 'latest' ? 'selected' : '' }}>Recent to Oldest</option>
+                                <option value="oldest" {{ ($sort ?? '') === 'oldest' ? 'selected' : '' }}>Oldest to Recent</option>
+                            </select>
+
+                            <select id="sort-profiles-select" name="sort" class="search-select-dropdown" style="{{ request('category') !== 'profiles' ? 'display: none;' : '' }}">
+                                <option value="a-z" {{ ($sort ?? 'a-z') === 'a-z' ? 'selected' : '' }}>Alphabetical (A - Z)</option>
+                                <option value="z-a" {{ ($sort ?? '') === 'z-a' ? 'selected' : '' }}>Alphabetical (Z - A)</option>
+                            </select>
+                        </div>
+
+                        <div class="search-divider"></div>
+
+                        <!-- Text Input -->
+                        <div class="search-input-field">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input 
+                                type="text" 
+                                name="search" 
+                                value="{{ $searchTerm ?? '' }}" 
+                                placeholder="Search keywords or names..." 
+                                aria-label="Search feed"
+                            >
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn-search-submit">
+                            Search
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <div class="search-divider"></div>
+            <!-- Active Search Status Bar & Back Button -->
+            @if(!empty($isSearching))
+                <div class="search-status-bar">
+                    <div class="search-status-text">
+                        Showing {{ request('category') === 'profiles' ? 'profile' : 'post' }} results for: <strong>"{{ $searchTerm }}"</strong>
+                    </div>
+                    <a href="{{ route('user.dashboard') }}" class="btn-back-feed">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Back to Feed
+                    </a>
+                </div>
+            @endif
 
-            <!-- Text Input -->
-            <div class="search-input-field">
-                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <input 
-                    type="text" 
-                    name="search" 
-                    value="{{ request('search') }}" 
-                    placeholder="Search keywords or names..." 
-                    aria-label="Search feed"
-                >
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn-search-submit">
-                Search
-            </button>
-        </div>
-    </form>
-</div>
+            <!-- Conditional Grid Display -->
             @if(request('category') === 'profiles')
-    <!-- Profiles Grid -->
-    <div class="post-grid">
-        @forelse($profiles as $profile)
-            <div class="post-card">
-                <div>
-                    <span class="status-badge status-found">{{ ucfirst($profile->role) }}</span>
-                    <h3>{{ $profile->name }}</h3>
-                    <p>{{ $profile->email }}</p>
+                <!-- Profiles Grid -->
+                <div class="post-grid">
+                    @forelse($profiles as $profile)
+                        <div class="post-card">
+                            <div>
+                                <span class="status-badge status-found">{{ ucfirst($profile->role ?? 'User') }}</span>
+                                <h3>{{ $profile->name }}</h3>
+                                <p>{{ $profile->email }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="empty-state">
+                            <p>{{ !empty($isSearching) ? 'No user profiles matching "' . $searchTerm . '".' : 'No user profiles found.' }}</p>
+                        </div>
+                    @endforelse
                 </div>
-            </div>
-        @empty
-            <div class="empty-state">
-                <p>No user profiles found matching your search.</p>
-            </div>
-        @endforelse
-    </div>
-@else
-    <!-- Posts Grid -->
-    <div class="post-grid">
-        @forelse($posts as $post)
-            <div class="post-card">
-                <div>
-                    <span class="status-badge status-{{ $post->status }}">{{ $post->status }}</span>
-                    <h3>{{ $post->title }}</h3>
-                    <p>{{ $post->description }}</p>
+            @else
+                <!-- Posts Grid -->
+                <div class="post-grid">
+                    @forelse($posts as $post)
+                        <div class="post-card">
+                            <div>
+                                <span class="status-badge status-{{ $post->status }}">{{ $post->status }}</span>
+                                <h3>{{ $post->title }}</h3>
+                                <p>{{ $post->description }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="empty-state">
+                            <p>{{ !empty($isSearching) ? 'No posts found matching your search criteria.' : 'No posts in the community feed yet.' }}</p>
+                        </div>
+                    @endforelse
                 </div>
-            </div>
-        @empty
-            <div class="empty-state">
-                <p>No posts found matching your search.</p>
-            </div>
-        @endforelse
-    </div>
-@endif
+            @endif
         </main>
     </div>
+
     <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="modal-overlay">
         <div class="modal-card">
@@ -138,6 +178,5 @@
             </div>
         </div>
     </div>
-    
 </body>
 </html>
