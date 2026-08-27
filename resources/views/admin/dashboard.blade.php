@@ -79,7 +79,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="page-header">
-                <h1>Admin Moderation Dashboard</h1>
+                <h1>Community Feed</h1>
                 <p>System overview, content moderation, and administrative controls.</p>
             </div>
 

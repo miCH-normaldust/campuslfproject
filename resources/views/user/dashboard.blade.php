@@ -74,7 +74,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="page-header">
-                <h1>Student Dashboard</h1>
+                <h1>Community Feed</h1>
                 <p>Manage your posts, report lost items, or browse campus feed.</p>
             </div>
             

@@ -7,6 +7,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    flex: none;
 }
 
 body {
@@ -339,6 +340,7 @@ input:focus {
 /* Strict Icon Dimension Clamping */
 .drawer svg,
 .drawer .menu-icon {
+    margin: 5px;
     width: 20px !important;
     height: 20px !important;
     min-width: 20px !important;
@@ -388,7 +390,7 @@ input:focus {
     margin-left: 260px;
     flex: 1;
     padding: 36px 40px;
-    min-width: 0;
+    max-width: 100%;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -417,12 +419,14 @@ input:focus {
    ========================================================================== */
 
 .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }
 
 .post-card {
+    width: 100%; /* Ensures card stretches full width */
     background: #ffffff;
     border-radius: 12px;
     padding: 24px;
@@ -474,6 +478,8 @@ input:focus {
    ========================================================================== */
 
 .search-card {
+    display: flex;
+    flex-direction: column;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
@@ -481,14 +487,12 @@ input:focus {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
     margin-bottom: 24px;
     width: 100%;
-    max-width: 720px;
 }
 
 .search-bar-wrapper {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    gap: 10px;
     width: 100%;
 }
 
@@ -590,12 +594,6 @@ input:focus {
     outline: none;
 }
 
-.search-divider {
-    width: 1px;
-    height: 28px;
-    background: #e2e8f0;
-    flex-shrink: 0;
-}
 
 .search-input-field {
     display: flex;
@@ -606,6 +604,7 @@ input:focus {
 }
 
 .search-icon {
+    margin: 5px;
     width: 18px;
     height: 18px;
     color: #94a3b8;
@@ -642,6 +641,7 @@ input:focus {
 
 .search-status-bar {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background: #f8fafc;
@@ -649,7 +649,7 @@ input:focus {
     border-radius: 10px;
     padding: 12px 18px;
     margin-bottom: 20px;
-    max-width: 720px;
+    max-width: 100%;
 }
 
 .search-status-text {
